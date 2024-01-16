@@ -1,0 +1,13 @@
+Observações:
+Command pattern poderia ser usado para desacoplar as teclas do comando final
+Srtategy pattern poderia ser usado para descoplar o comando final do comportamento
+Algoritmo Quad Tree pode ser usado na verificação de colisões
+
+Extras dados pelo Filipe:
+Reajustar o canvas de acordo com valores vindos do backend
+'unsubscribe' dos observers
+sistema de pontuação
+emitir sons ao fazer pontos
+'tela infinita'
+refatorar funções anônimas
+filtrar comandos do backend
