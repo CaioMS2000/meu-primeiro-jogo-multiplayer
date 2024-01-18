@@ -4,13 +4,36 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="style.css">
+    <link href="./tw-style.css" rel="stylesheet">
     <title>Jogo</title>
+
+    <style>        
+        /**{
+          margin: 0;
+          padding: 0;
+        }
+        
+        .page{
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          height: 100vh;
+        }
+        
+        #screen{
+            border: 5px solid var(--cinza);
+            image-rendering: pixelated;
+            image-rendering: crisp-edges;
+            image-rendering: -moz-crisp-edges;
+            width: 400px;
+            height: 400px;
+        }*/
+    </style>
 </head>
 <body>
-    <div class="page">
-        <canvas id="screen" width="10" height="10"></canvas>
+    <div class="page flex h-screen w-screen  bg-[#101010]">
+        <canvas id="screen" width="20" height="20" class=" ml-40 p-1 w-96 h-96"></canvas>
     </div>
-
     <script src="/socket.io/socket.io.js"></script>
     <script src="./main.js" type="module"></script>
 </body>
