@@ -1,27 +1,28 @@
+export type Observer = (...args:any[]) => void;
+
+export type Identifier = string|number;
+
+export interface EntityData{
+    x: number;
+    y: number;
+}
+
+export interface Screen{
+    height: number;
+    width: number;
+}
+
+export type Entity = Record<Identifier, EntityData>;
+
+export interface GameState{
+    players: Entity;
+    fruits: Entity;
+    screen: Screen
+}
+
 export default function createGame(){
-    /**
-    * @typedef {Object} Player
-    * @property {number} x - A posição X do jogador.
-    * @property {number} y - A posição Y do jogador.
-    */
 
-    /**
-    * @typedef {Object} Fruit
-    * @property {number} x - A posição X da fruta.
-    * @property {number} y - A posição Y da fruta.
-    */
-
-    /**
-    * @typedef {Object} State
-    * @property {Object.<string, Player>} players - Objeto contendo jogadores.
-    * @property {Object.<string, Fruit>} fruits - Objeto contendo frutas.
-    */
-
-    /**
-    * @type {State}
-    */
-
-    const state = {
+    const state: GameState = {
         players: {},
         fruits: {},
         screen: {
@@ -30,45 +31,45 @@ export default function createGame(){
         },
     }
 
-    const observers = []
+    const observers: Observer[] = []
 
-    function start(){
+    function startFruitDrops(){
         const frequency = 2 * 1000
 
         setInterval(addFruit, frequency)
     }
 
-    function subscribe(observeFunction){
+    function subscribe(observeFunction: Observer){
         observers.push(observeFunction)
     }
 
-    function notifyAll(command){
+    function notifyAll(command: Record<string, any>){
 
         for(const observeFunction of observers){
             observeFunction(command)
         }
     }
 
-    function addPlayer(command){
+    function addPlayer(command: Record<string, any>){
         const playerId = command.playerId
-        const playerX = 'playerX' in command? command.playerX : Math.floor(Math.random()*state.screen.width)
-        const playerY = 'playerY' in command? command.playerY : Math.floor(Math.random()*state.screen.height)
+        const playerX = 'x' in command? command.x : Math.floor(Math.random()*state.screen.width)
+        const playerY = 'y' in command? command.y : Math.floor(Math.random()*state.screen.height)
         
 
         state.players[playerId] = {
-            playerX: playerX,
-            playerY: playerY
+            x: playerX,
+            y: playerY
         }
 
         notifyAll({
             type:'add-player',
             playerId,
-            playerX,
-            playerY,
+            x: playerX,
+            y: playerY,
         })
     }
 
-    function removePlayer(command){
+    function removePlayer(command: Record<string, any>){
         const playerId = command.playerId
 
         delete state.players[playerId]
@@ -79,7 +80,7 @@ export default function createGame(){
         })
     }
 
-    function addFruit(command){
+    function addFruit(command: Record<string, any>){
         if(Object.keys(state.fruits).length >= 10) return;
         
         const fruitId = command? command.fruitId : Math.floor(Math.random()*1000000)
@@ -88,8 +89,8 @@ export default function createGame(){
         
 
         state.fruits[fruitId] = {
-            fruitX,
-            fruitY
+            x: fruitX,
+            y: fruitY
         }
 
         notifyAll({
@@ -100,7 +101,7 @@ export default function createGame(){
         })
     }
 
-    function removeFruit(command){
+    function removeFruit(command: Record<string, any>){
         const fruitId = command.fruitId
 
         delete state.fruits[fruitId]
@@ -111,57 +112,57 @@ export default function createGame(){
         })
     }
 
-    function checkFruitColision(playerId){
+    function checkFruitColision(playerId: Identifier){
         const player = state.players[playerId]
 
         for(const fruitId in state.fruits){
             const fruit = state.fruits[fruitId]
 
-            if(player.playerX == fruit.fruitX && player.playerY == fruit.fruitY){
+            if(player.x == fruit.x && player.y == fruit.y){
                 removeFruit({fruitId})
             }
         }
     }
 
-    function movePlayer(command){
+    function movePlayer(command: Record<string, any>){
         notifyAll(command)
         
         const key = command.key;
         const playerId = command.playerId;
         const player = state.players[playerId]
 
-        const acceptedMoves = {
-            ArrowUp(player){
-                const newCoordinate = player.playerY - 1
+        const acceptedMoves: Record<string, (arg: EntityData) => void> = {
+            ArrowUp(player: EntityData){
+                const newCoordinate = player.y - 1
 
                 if(newCoordinate >= 0){
-                    player.playerY = newCoordinate
+                    player.y = newCoordinate
                 }
             },
-            ArrowDown(player){
-                const newCoordinate = player.playerY + 1
+            ArrowDown(player: EntityData){
+                const newCoordinate = player.y + 1
 
                 if(newCoordinate < state.screen.height){
-                    player.playerY = newCoordinate
+                    player.y = newCoordinate
                 }
             },
-            ArrowRight(player){
-                const newCoordinate = player.playerX + 1
+            ArrowRight(player: EntityData){
+                const newCoordinate = player.x + 1
 
                 if(newCoordinate < state.screen.width){
-                    player.playerX = newCoordinate
+                    player.x = newCoordinate
                 }
             },
-            ArrowLeft(player){
-                const newCoordinate = player.playerX - 1
+            ArrowLeft(player: EntityData){
+                const newCoordinate = player.x - 1
 
                 if(newCoordinate >= 0){
-                    player.playerX = newCoordinate
+                    player.x = newCoordinate
                 }
             },
         }
 
-        const moveFunction = acceptedMoves[key]
+        const moveFunction = acceptedMoves[key as string]
         
         if(player && moveFunction) {
             moveFunction(player);
@@ -169,7 +170,7 @@ export default function createGame(){
         }
     }
 
-    function setState(newState){
+    function setState(newState: GameState){
         Object.assign(state, newState)
     }
 
@@ -181,7 +182,7 @@ export default function createGame(){
         removeFruit,
         setState,
         subscribe,
-        start,
+        start: startFruitDrops,
         state,
     }
 }
