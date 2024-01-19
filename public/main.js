@@ -1,6 +1,6 @@
-import createKeyboardListenner from "./keyboardListener.js";
-import createGame from "./game.js";
-import renderScreen from "./renderScreen.js";
+import createKeyboardListenner from "./keyboardListener";
+import createGame from "./game";
+import renderScreen from "./renderScreen";
 
 /**
  * @type {HTMLCanvasElement}
