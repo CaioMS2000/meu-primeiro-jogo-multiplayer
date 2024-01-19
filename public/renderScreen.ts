@@ -1,4 +1,4 @@
-import { GameState, Identifier } from "./game"
+import { Identifier } from "./game"
 
 export default function renderScreen(screen: HTMLCanvasElement, game: Record<any, any>, requestAnimationFrame: (callback: () => void) => void, currentPlayerId: Identifier){
     const context = screen.getContext('2d')

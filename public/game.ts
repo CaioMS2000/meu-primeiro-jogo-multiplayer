@@ -1,3 +1,4 @@
+
 export type Observer = (...args:any[]) => void;
 
 export type Identifier = string|number;
@@ -20,7 +21,19 @@ export interface GameState{
     screen: Screen
 }
 
-export default function createGame(){
+export interface Game{
+    movePlayer: (arg: Record<string, any>) => void,
+    addPlayer: (arg: Record<string, any>) => void,
+    removePlayer: (arg: Record<string, any>) => void,
+    addFruit: (arg: Record<string, any>) => void,
+    removeFruit: (arg: Record<string, any>) => void,
+    setState: (arg: GameState) => void,
+    subscribe: (arg: Observer) => void,
+    startFruitDrops: () => void,
+    state: GameState,
+}
+
+export default function createGame(): Game{
 
     const state: GameState = {
         players: {},
@@ -182,7 +195,7 @@ export default function createGame(){
         removeFruit,
         setState,
         subscribe,
-        start: startFruitDrops,
+        startFruitDrops,
         state,
     }
 }
