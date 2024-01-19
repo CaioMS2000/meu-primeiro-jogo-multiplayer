@@ -1,5 +1,10 @@
-export default function renderScreen(screen, game, requestAnimationFrame, currentPlayerId){
+import { GameState, Identifier } from "./game"
+
+export default function renderScreen(screen: HTMLCanvasElement, game: Record<any, any>, requestAnimationFrame: (callback: () => void) => void, currentPlayerId: Identifier){
     const context = screen.getContext('2d')
+    
+    if(!context) return;
+
     context.fillStyle = 'white'
     context.clearRect(0, 0, game.state.screen.height, game.state.screen.width)
 
