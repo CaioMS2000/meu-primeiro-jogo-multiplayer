@@ -1,6 +1,7 @@
 import createKeyboardListenner from "./keyboardListener";
 import createGame from "./game";
 import renderScreen from "./renderScreen";
+import { io } from "socket.io-client";
 
 /**
  * @type {HTMLCanvasElement}
@@ -11,15 +12,22 @@ const socket = io();
 
 socket.on("connect", () => {
 	const currentPlayerId = socket.id;
+
+	if(!currentPlayerId) return;
+
 	console.log(`Connected with id '${currentPlayerId}'`);
 
-	const screen = document.getElementById("screen");
+	const screen: HTMLCanvasElement|null = document.getElementById("screen") as HTMLCanvasElement;
+
+	if(!screen) return;
 
 	renderScreen(screen, game, requestAnimationFrame, currentPlayerId);
 });
 
 socket.on("setup", (state) => {
 	const playerId = socket.id;
+
+	if(!playerId) return;
 
 	game.setState(state);
 
