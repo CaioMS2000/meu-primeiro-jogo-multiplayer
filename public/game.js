@@ -25,8 +25,8 @@ export default function createGame(){
         players: {},
         fruits: {},
         screen: {
-            height: 10,
-            width: 10,
+            height: 20,
+            width: 20,
         },
     }
 
@@ -80,6 +80,8 @@ export default function createGame(){
     }
 
     function addFruit(command){
+        if(Object.keys(state.fruits).length >= 10) return;
+        
         const fruitId = command? command.fruitId : Math.floor(Math.random()*1000000)
         const fruitX = command? command.fruitX : Math.floor(Math.random()*state.screen.width)
         const fruitY = command? command.fruitY : Math.floor(Math.random()*state.screen.height)
