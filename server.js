@@ -1,12 +1,12 @@
 import express from 'express'
-import createGame from './public/game.js'
+import createGame from './dist/public/game.js'
 import {Server} from 'socket.io'
 import {createServer} from'http'
 
-export const app = express();
+const app = express();
 const httpServer = createServer(app);
-export const io = new Server(httpServer, { /* options */ });
-const port = 3001;
+const io = new Server(httpServer, { /* options */ });
+const port = 3000;
 
 app.use(express.static('public'))
 
@@ -15,7 +15,7 @@ httpServer.listen(port, () => {
 });
 
 const game = createGame()
-game.startFruitDrops()
+game.start()
 game.subscribe(command => {
     io.emit(command.type, command)
 })
