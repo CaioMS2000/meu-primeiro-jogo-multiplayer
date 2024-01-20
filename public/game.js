@@ -1,6 +1,4 @@
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
-function createGame() {
+export default function createGame() {
     const state = {
         players: {},
         fruits: {},
@@ -131,4 +129,3 @@ function createGame() {
         state,
     };
 }
-exports.default = createGame;

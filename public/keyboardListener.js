@@ -1,6 +1,4 @@
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
-function createKeyboardListenner(document) {
+export default function createKeyboardListenner(document) {
     const state = {
         observers: [],
         playerId: null
@@ -31,4 +29,3 @@ function createKeyboardListenner(document) {
         registerPlayerId,
     };
 }
-exports.default = createKeyboardListenner;

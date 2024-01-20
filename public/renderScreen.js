@@ -1,6 +1,4 @@
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
-function renderScreen(screen, game, requestAnimationFrame, currentPlayerId) {
+export default function renderScreen(screen, game, requestAnimationFrame, currentPlayerId) {
     const context = screen.getContext('2d');
     if (!context)
         return;
@@ -25,4 +23,3 @@ function renderScreen(screen, game, requestAnimationFrame, currentPlayerId) {
         renderScreen(screen, game, requestAnimationFrame, currentPlayerId);
     });
 }
-exports.default = renderScreen;

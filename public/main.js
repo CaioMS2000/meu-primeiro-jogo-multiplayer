@@ -1,18 +1,13 @@
-"use strict";
-var __importDefault = (this && this.__importDefault) || function (mod) {
-    return (mod && mod.__esModule) ? mod : { "default": mod };
-};
-Object.defineProperty(exports, "__esModule", { value: true });
-const keyboardListener_1 = __importDefault(require("./keyboardListener"));
-const game_1 = __importDefault(require("./game"));
-const renderScreen_1 = __importDefault(require("./renderScreen.cjs"));
-const socket_io_client_1 = require("socket.io-client");
+import createKeyboardListenner from "./keyboardListener.js";
+import createGame from "./game.js";
+import renderScreen from "./renderScreen.js";
+// import { io } from "socket.io-client";
 /**
  * @type {HTMLCanvasElement}
  */
-const game = (0, game_1.default)();
-const keyboardListenner = (0, keyboardListener_1.default)(document);
-const socket = (0, socket_io_client_1.io)();
+const game = createGame();
+const keyboardListenner = createKeyboardListenner(document);
+const socket = io();
 socket.on("connect", () => {
     const currentPlayerId = socket.id;
     if (!currentPlayerId)
@@ -21,7 +16,7 @@ socket.on("connect", () => {
     const screen = document.getElementById("screen");
     if (!screen)
         return;
-    (0, renderScreen_1.default)(screen, game, requestAnimationFrame, currentPlayerId);
+    renderScreen(screen, game, requestAnimationFrame, currentPlayerId);
 });
 socket.on("setup", (state) => {
     const playerId = socket.id;

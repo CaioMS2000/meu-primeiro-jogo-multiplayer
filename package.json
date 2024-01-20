@@ -2,7 +2,7 @@
   "name": "meu-primeiro-jogo-multiplayer",
   "version": "1.0.0",
   "description": "",
-  "main": "server.js",
+  "main": "dist/server.js",
   "type": "module",
   "scripts": {
     "start": "tsc -m commonjs && node dist/server.cjs",
