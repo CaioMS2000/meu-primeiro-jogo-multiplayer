@@ -1,3 +1,7 @@
+npx tailwindcss -i ./src/public/style.css -o ./src/public/tw-style.css --watch
+
+npx tsc;npm run static
+
 npx tsc
 npm run static
 node .\dist\server.js

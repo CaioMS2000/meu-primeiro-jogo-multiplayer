@@ -10,13 +10,8 @@ export default function createKeyboardListenner(document) {
         state.observers.push(observeFunction);
     }
     function unsubscribe() {
-        console.log('keyboardListener');
-        console.log(state.observers);
         while (state.observers.length > 0)
             state.observers.pop();
-        console.log('#');
-        console.log(state.observers);
-        console.log('\n');
     }
     function notifyAll(command) {
         for (const observeFunction of state.observers) {

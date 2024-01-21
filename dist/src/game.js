@@ -16,12 +16,7 @@ export default function createGame() {
         Object.assign(observers, observer);
     }
     function unsubscribe(playerId) {
-        console.log('game');
-        console.log(observers);
         delete observers[playerId];
-        console.log('#');
-        console.log(observers);
-        console.log('\n');
     }
     function notifyAll(command) {
         for (const observerID in observers) {

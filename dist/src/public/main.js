@@ -2,7 +2,6 @@ import createGame from "../game.js";
 import createKeyboardListenner from "../keyboardListener.js";
 import renderScreen from "../renderScreen.js";
 // import { io } from "socket.io-client";
-const button = document.querySelector('button');
 const game = createGame();
 const keyboardListenner = createKeyboardListenner(document);
 const socket = io();
@@ -53,8 +52,3 @@ socket.on("add-fruit", (command) => {
 socket.on("remove-fruit", (command) => {
     game.removeFruit(command);
 });
-function disconnectSocket() {
-    console.log('desconectarei');
-    socket.disconnect();
-}
-button === null || button === void 0 ? void 0 : button.addEventListener('click', () => disconnectSocket());
