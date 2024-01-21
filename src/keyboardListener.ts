@@ -26,14 +26,7 @@ export default function createKeyboardListenner(document: Document): KeyboardLis
     }
 
     function unsubscribe(){
-        console.log('keyboardListener')
-        console.log(state.observers)
-        for(const observerID in state.observers){
-            delete state.observers[observerID]
-        }
-        console.log('#')
-        console.log(state.observers)
-        console.log('\n')
+        while(state.observers.length > 0) state.observers.pop();
     }
 
     function notifyAll(command: Record<string, any>){

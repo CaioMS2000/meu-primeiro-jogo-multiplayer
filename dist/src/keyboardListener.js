@@ -12,9 +12,8 @@ export default function createKeyboardListenner(document) {
     function unsubscribe() {
         console.log('keyboardListener');
         console.log(state.observers);
-        for (const observerID in state.observers) {
-            delete state.observers[observerID];
-        }
+        while (state.observers.length > 0)
+            state.observers.pop();
         console.log('#');
         console.log(state.observers);
         console.log('\n');

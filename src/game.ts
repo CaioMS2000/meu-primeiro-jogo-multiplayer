@@ -59,12 +59,7 @@ export default function createGame(): Game{
     }
 
     function unsubscribe(playerId: Identifier){
-        console.log('game')
-        console.log(observers)
         delete observers[playerId]
-        console.log('#')
-        console.log(observers)
-        console.log('\n')
     }
 
     function notifyAll(command: Record<string, any>){

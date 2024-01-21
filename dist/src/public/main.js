@@ -2,11 +2,14 @@ import createGame from "../game.js";
 import createKeyboardListenner from "../keyboardListener.js";
 import renderScreen from "../renderScreen.js";
 // import { io } from "socket.io-client";
+const button = document.querySelector('button');
 const game = createGame();
 const keyboardListenner = createKeyboardListenner(document);
 const socket = io();
+let ID = socket === null || socket === void 0 ? void 0 : socket.id;
 socket.on("connect", () => {
     const currentPlayerId = socket.id;
+    ID = currentPlayerId;
     if (!currentPlayerId)
         return;
     console.log(`Connected with id '${currentPlayerId}'`);
@@ -28,10 +31,9 @@ socket.on("setup", (state) => {
 });
 socket.on("disconnect", () => {
     keyboardListenner.unsubscribe();
-    const playerId = socket.id;
-    if (!playerId)
+    if (!ID)
         return;
-    game.unsubscribe(playerId);
+    game.unsubscribe(ID);
 });
 socket.on("add-player", (command) => {
     game.addPlayer(command);
@@ -53,13 +55,6 @@ socket.on("remove-fruit", (command) => {
 });
 function disconnectSocket() {
     console.log('desconectarei');
-    const button = document.querySelector('button');
-    if (!button)
-        return;
     socket.disconnect();
 }
-
-const button = document.querySelector('button');
-button.addEventListener('click', () => {
-    disconnectSocket()
-})
+button === null || button === void 0 ? void 0 : button.addEventListener('click', () => disconnectSocket());
