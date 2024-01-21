@@ -1,10 +1,7 @@
-import createKeyboardListenner from "./keyboardListener.js";
-import createGame from "./game.js";
-import renderScreen from "./renderScreen.js";
+import createGame from "../game.js";
+import createKeyboardListenner from "../keyboardListener.js";
+import renderScreen from "../renderScreen.js";
 // import { io } from "socket.io-client";
-/**
- * @type {HTMLCanvasElement}
- */
 const game = createGame();
 const keyboardListenner = createKeyboardListenner(document);
 const socket = io();
@@ -16,6 +13,8 @@ socket.on("connect", () => {
     const screen = document.getElementById("screen");
     if (!screen)
         return;
+    screen.width = game.state.screen.width;
+    screen.height = game.state.screen.height;
     renderScreen(screen, game, requestAnimationFrame, currentPlayerId);
 });
 socket.on("setup", (state) => {

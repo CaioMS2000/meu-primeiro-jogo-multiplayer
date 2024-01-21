@@ -1,4 +1,3 @@
-
 export type Observer = (...args:any[]) => void;
 
 export type Identifier = string|number;

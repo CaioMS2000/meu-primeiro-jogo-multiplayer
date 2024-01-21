@@ -1,12 +1,19 @@
 import express from 'express';
-import createGame from './public/game.js';
 import { Server } from 'socket.io';
 import { createServer } from 'http';
+import path from 'path';
+import { fileURLToPath } from 'url';
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+import createGame from './src/game.js';
 export const app = express();
 const httpServer = createServer(app);
 export const io = new Server(httpServer, { /* options */});
 const port = 3001;
-app.use(express.static('public'));
+app.use(express.static('dist/src'));
+app.get('/', (req, res) => {
+    res.sendFile(path.join(__dirname, 'src/public/index.html'));
+});
 httpServer.listen(port, () => {
     console.log(`> O aplicativo está rodando em http://localhost:${port}`);
 });
