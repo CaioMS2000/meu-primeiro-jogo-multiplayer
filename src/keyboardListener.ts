@@ -8,6 +8,7 @@ export interface KeyboardListennerState{
 export interface KeyboardListenner{
     registerPlayerId: (arg: Identifier) => void;
     subscribe: (arg: Observer) => void;
+    unsubscribe: () => void;
 }
 
 export default function createKeyboardListenner(document: Document): KeyboardListenner{
@@ -22,6 +23,17 @@ export default function createKeyboardListenner(document: Document): KeyboardLis
 
     function subscribe(observeFunction: Observer){
         state.observers.push(observeFunction)
+    }
+
+    function unsubscribe(){
+        console.log('keyboardListener')
+        console.log(state.observers)
+        for(const observerID in state.observers){
+            delete state.observers[observerID]
+        }
+        console.log('#')
+        console.log(state.observers)
+        console.log('\n')
     }
 
     function notifyAll(command: Record<string, any>){
@@ -47,6 +59,7 @@ export default function createKeyboardListenner(document: Document): KeyboardLis
     return {
         subscribe,
         registerPlayerId,
+        unsubscribe,
     }
 
 }

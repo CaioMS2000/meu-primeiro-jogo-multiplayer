@@ -19,15 +19,16 @@ httpServer.listen(port, () => {
 });
 const game = createGame();
 game.startFruitDrops();
-game.subscribe(command => {
-    io.emit(command.type, command);
-});
+game.subscribe({ 'server': command => {
+        io.emit(command.type, command);
+    } });
 io.on('connection', socket => {
     const playerId = socket.id;
     game.addPlayer({ playerId });
     socket.emit('setup', game.state);
     socket.on('disconnect', () => {
         game.removePlayer({ playerId });
+        game.unsubscribe(playerId);
     });
     socket.on('move-player', command => {
         command.playerId = playerId;

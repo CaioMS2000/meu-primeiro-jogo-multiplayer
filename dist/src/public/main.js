@@ -26,6 +26,13 @@ socket.on("setup", (state) => {
         socket.emit("move-player", command);
     });
 });
+socket.on("disconnect", () => {
+    keyboardListenner.unsubscribe();
+    const playerId = socket.id;
+    if (!playerId)
+        return;
+    game.unsubscribe(playerId);
+});
 socket.on("add-player", (command) => {
     game.addPlayer(command);
 });
@@ -44,3 +51,15 @@ socket.on("add-fruit", (command) => {
 socket.on("remove-fruit", (command) => {
     game.removeFruit(command);
 });
+function disconnectSocket() {
+    console.log('desconectarei');
+    const button = document.querySelector('button');
+    if (!button)
+        return;
+    socket.disconnect();
+}
+
+const button = document.querySelector('button');
+button.addEventListener('click', () => {
+    disconnectSocket()
+})

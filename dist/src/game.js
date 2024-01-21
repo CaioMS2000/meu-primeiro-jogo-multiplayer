@@ -7,17 +7,27 @@ export default function createGame() {
             width: 20,
         },
     };
-    const observers = [];
+    const observers = {};
     function startFruitDrops() {
         const frequency = 2 * 1000;
         setInterval(addFruit, frequency);
     }
-    function subscribe(observeFunction) {
-        observers.push(observeFunction);
+    function subscribe(observer) {
+        Object.assign(observers, observer);
+    }
+    function unsubscribe(playerId) {
+        console.log('game');
+        console.log(observers);
+        delete observers[playerId];
+        console.log('#');
+        console.log(observers);
+        console.log('\n');
     }
     function notifyAll(command) {
-        for (const observeFunction of observers) {
-            observeFunction(command);
+        for (const observerID in observers) {
+            const func = observers[observerID];
+            if (func)
+                func(command);
         }
     }
     function addPlayer(command) {
@@ -125,6 +135,7 @@ export default function createGame() {
         removeFruit,
         setState,
         subscribe,
+        unsubscribe,
         startFruitDrops,
         state,
     };

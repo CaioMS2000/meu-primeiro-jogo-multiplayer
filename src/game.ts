@@ -2,6 +2,8 @@ export type Observer = (...args:any[]) => void;
 
 export type Identifier = string|number;
 
+export type SubscribeProps = Record<Identifier, Observer>
+
 export interface EntityData{
     x: number;
     y: number;
@@ -27,7 +29,8 @@ export interface Game{
     addFruit: (arg: Record<string, any>) => void,
     removeFruit: (arg: Record<string, any>) => void,
     setState: (arg: GameState) => void,
-    subscribe: (arg: Observer) => void,
+    subscribe: (arg: SubscribeProps) => void,
+    unsubscribe: (arg: Identifier) => void,
     startFruitDrops: () => void,
     state: GameState,
 }
@@ -43,7 +46,7 @@ export default function createGame(): Game{
         },
     }
 
-    const observers: Observer[] = []
+    const observers: Record<Identifier, Observer> = {}
 
     function startFruitDrops(){
         const frequency = 2 * 1000
@@ -51,14 +54,25 @@ export default function createGame(): Game{
         setInterval(addFruit, frequency)
     }
 
-    function subscribe(observeFunction: Observer){
-        observers.push(observeFunction)
+    function subscribe(observer: SubscribeProps){
+        Object.assign(observers, observer)
+    }
+
+    function unsubscribe(playerId: Identifier){
+        console.log('game')
+        console.log(observers)
+        delete observers[playerId]
+        console.log('#')
+        console.log(observers)
+        console.log('\n')
     }
 
     function notifyAll(command: Record<string, any>){
 
-        for(const observeFunction of observers){
-            observeFunction(command)
+        for(const observerID in observers){
+            const func = observers[observerID]
+
+            if(func) func(command);
         }
     }
 
@@ -194,6 +208,7 @@ export default function createGame(): Game{
         removeFruit,
         setState,
         subscribe,
+        unsubscribe,
         startFruitDrops,
         state,
     }
