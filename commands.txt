@@ -1,0 +1,3 @@
+npx tsc
+npm run static
+node .\dist\server.js

@@ -13,8 +13,6 @@ socket.on("connect", () => {
     const screen = document.getElementById("screen");
     if (!screen)
         return;
-    screen.width = game.state.screen.width;
-    screen.height = game.state.screen.height;
     renderScreen(screen, game, requestAnimationFrame, currentPlayerId);
 });
 socket.on("setup", (state) => {

@@ -18,9 +18,6 @@ socket.on("connect", () => {
 
 	if(!screen) return;
 
-	screen.width = game.state.screen.width
-	screen.height = game.state.screen.height
-
 	renderScreen(screen, game, requestAnimationFrame, currentPlayerId);
 });
 

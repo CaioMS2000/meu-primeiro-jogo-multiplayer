@@ -5,6 +5,9 @@ export default function renderScreen(screen: HTMLCanvasElement, game: Game, requ
     
     if(!context) return;
 
+    screen.width = game.state.screen.width
+	screen.height = game.state.screen.height
+
     context.fillStyle = 'white'
     context.clearRect(0, 0, game.state.screen.height, game.state.screen.width)
 
