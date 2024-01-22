@@ -11,5 +11,5 @@
     // "sourceMap": true,
   },
   "include": ["src/**/*.ts", "server.ts"],
-  "exclude": ["*tailwind*"]
+  "exclude": ["tailwind.config.js", "**/*.d.ts"],
 }
