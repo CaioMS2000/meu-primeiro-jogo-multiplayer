@@ -1,4 +1,4 @@
-import { Identifier, Observer } from "./game";
+import { Identifier, Observer } from "./game.js";
 
 export interface KeyboardListennerState{
     observers: Observer[];
