@@ -1,6 +1,6 @@
-import createGame from "../game";
-import createKeyboardListenner from "../keyboardListener";
-import renderScreen from "../renderScreen";
+import createGame from "../game.js";
+import createKeyboardListenner from "../keyboardListener.js";
+import renderScreen from "../renderScreen.js";
 import { io } from "socket.io-client";
 
 const game = createGame();
