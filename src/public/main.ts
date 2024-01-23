@@ -1,7 +1,9 @@
 import createGame from "../game.js";
 import createKeyboardListenner from "../keyboardListener.js";
 import renderScreen from "../renderScreen.js";
-import { io } from "socket.io-client";
+// import { io } from "socket.io-client";
+type Fake = (...args: any[]) => Record<any, any>;
+declare let io: Fake;
 
 const game = createGame();
 const keyboardListenner = createKeyboardListenner(document);
@@ -24,7 +26,7 @@ socket.on("connect", () => {
 	renderScreen(screen, game, requestAnimationFrame, currentPlayerId);
 });
 
-socket.on("setup", (state) => {
+socket.on("setup", (state:any) => {
 	const playerId = socket.id;
 
 	if(!playerId) return;
@@ -46,15 +48,15 @@ socket.on("disconnect", () => {
 	game.unsubscribe(ID)
 })
 
-socket.on("add-player", (command) => {
+socket.on("add-player", (command:any) => {
 	game.addPlayer(command);
 });
 
-socket.on("remove-player", (command) => {
+socket.on("remove-player", (command:any) => {
 	game.removePlayer(command);
 });
 
-socket.on("move-player", (command) => {
+socket.on("move-player", (command:any) => {
 	const playerId = socket.id;
 
 	if (playerId != command.playerId) {
@@ -62,10 +64,10 @@ socket.on("move-player", (command) => {
 	}
 });
 
-socket.on("add-fruit", (command) => {
+socket.on("add-fruit", (command:any) => {
 	game.addFruit(command);
 });
 
-socket.on("remove-fruit", (command) => {
+socket.on("remove-fruit", (command:any) => {
 	game.removeFruit(command);
 });
