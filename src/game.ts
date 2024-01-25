@@ -177,12 +177,18 @@ export default function createGame(): Game{
                 if(newCoordinate >= 0){
                     player.y = newCoordinate
                 }
+                else{
+                    player.y = state.screen.height - 1
+                }
             },
             ArrowDown(player: EntityData){
                 const newCoordinate = player.y + 1
 
                 if(newCoordinate < state.screen.height){
                     player.y = newCoordinate
+                }
+                else{
+                    player.y = 0
                 }
             },
             ArrowRight(player: EntityData){
@@ -191,12 +197,18 @@ export default function createGame(): Game{
                 if(newCoordinate < state.screen.width){
                     player.x = newCoordinate
                 }
+                else{
+                    player.x = 0
+                }
             },
             ArrowLeft(player: EntityData){
                 const newCoordinate = player.x - 1
 
                 if(newCoordinate >= 0){
                     player.x = newCoordinate
+                }
+                else{
+                    player.x = state.screen.width - 1
                 }
             },
         }
