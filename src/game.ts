@@ -101,8 +101,6 @@ export default function createGame(): Game{
 
         state.players[playerId].points++
 
-        console.log(`${playerId} has ${state.players[playerId].points} points`)
-
         notifyAll({
             type: 'score',
             playerId

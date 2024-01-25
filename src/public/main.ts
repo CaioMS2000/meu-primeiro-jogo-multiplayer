@@ -1,10 +1,12 @@
 import createGame, { Game, Identifier, Player } from "../game.js";
 import createKeyboardListenner from "../keyboardListener.js";
+import createNotifyer from "../notify.js";
 import renderScreen from "../renderScreen.js";
 declare let io: Function;
 
 const game = createGame();
 const keyboardListenner = createKeyboardListenner(document);
+const notifyer = createNotifyer();
 const socket = io();
 let ID = socket?.id;
 
@@ -68,4 +70,10 @@ socket.on("add-fruit", (command: any) => {
 
 socket.on("remove-fruit", (command: any) => {
 	game.removeFruit(command);
+});
+
+socket.on("score", (command: any) => {
+	const playerId = command.playerId || socket.id;
+
+	notifyer.notify({[`${playerId}`]:{...game.state.players[playerId]}})
 });

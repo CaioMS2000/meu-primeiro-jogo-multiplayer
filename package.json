@@ -7,7 +7,7 @@
   "scripts": {
     "build": "npx tsc",
     "start": "node dist/server.js",
-    "static": "copyfiles src/**/*.html src/**/*.css src/**/favicon.ico dist",
+    "static": "copyfiles src/**/*.html src/**/*.css src/**/favicon.ico src/**/*.mp3 dist",
     "tw": "npx tailwindcss -i ./src/public/style.css -o ./src/public/tw-style.css",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
