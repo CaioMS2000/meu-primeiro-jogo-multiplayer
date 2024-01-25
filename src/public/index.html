@@ -3,14 +3,36 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <!-- <link rel="stylesheet" href="public/style.css"> -->
     <link href="public/tw-style.css" rel="stylesheet">
     <title>Jogo</title>
 </head>
 <body>
-    <div class="page flex h-screen w-screen bg-[#101010]">
-        <canvas id="screen" width="20" height="20" class="ml-40 p-1 w-96 h-96"></canvas>
+    <div class="page items-center gap-10 h-screen w-screen bg-[#101010] flex flex-col md:pl-40 md:flex-row md:items-start lg:flex-row lg:items-start">
+        <canvas id="screen" width="20" height="20" class="p-1 w-96 h-96"></canvas>
+        <table id="table" class="table-fixed text-white h-fit border-0 mt-1 max-w-72 font-bold">
+            <thead class="h-fit border-0">
+              <tr>
+                <th class="border-0 border-b-2 border-r-2">Player</th>
+                <th class="border-0 p-2 border-b-2">Points</th>
+              </tr>
+            </thead>
+            <tbody class="h-fit">
+              <!-- <tr>
+                <td>The Sliding Mr. Bones (Next Stop, Pottersville)</td>
+                <td>Malcolm Lockyer</td>
+              </tr> -->
+              <!-- <tr>
+                <td>Witchy Woman</td>
+                <td>The Eagles</td>
+              </tr> -->
+              <!-- <tr>
+                <td>Shining Star</td>
+                <td>Earth, Wind, and Fire</td>
+              </tr> -->
+            </tbody>
+          </table>
     </div>
+    <div id="invisible" class="hidden h-fit w-fit text-center items-center justify-center text-[#0e2668] text-[#2b62f8] font-bold"></div>
     <script src="/socket.io/socket.io.js"></script>
     <script src="public/main.js" type="module"></script>
 </body>

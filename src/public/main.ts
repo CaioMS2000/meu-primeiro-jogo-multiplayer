@@ -1,4 +1,4 @@
-import createGame from "../game.js";
+import createGame, { Game, Identifier, Player } from "../game.js";
 import createKeyboardListenner from "../keyboardListener.js";
 import renderScreen from "../renderScreen.js";
 declare let io: Function;

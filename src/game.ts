@@ -1,23 +1,26 @@
 export type Observer = (...args:any[]) => void;
 
-export type Identifier = string|number;
+export interface Screen{
+    height: number;
+    width: number;
+}
 
 export type SubscribeProps = Record<Identifier, Observer>
+
+export type Identifier = string|number;
 
 export interface EntityData{
     x: number;
     y: number;
 }
 
-export interface Screen{
-    height: number;
-    width: number;
-}
-
 export type Entity = Record<Identifier, EntityData>;
 
+export type Player = Record<Identifier, EntityData & {points: number}>;
+export type Fruit = Entity;
+
 export interface GameState{
-    players: Entity;
+    players: Player;
     fruits: Entity;
     screen: Screen
 }
@@ -26,6 +29,7 @@ export interface Game{
     movePlayer: (arg: Record<string, any>) => void,
     addPlayer: (arg: Record<string, any>) => void,
     removePlayer: (arg: Record<string, any>) => void,
+    scorePoint: (arg: Record<string, any>) => void,
     addFruit: (arg: Record<string, any>) => void,
     removeFruit: (arg: Record<string, any>) => void,
     setState: (arg: GameState) => void,
@@ -79,7 +83,8 @@ export default function createGame(): Game{
 
         state.players[playerId] = {
             x: playerX,
-            y: playerY
+            y: playerY,
+            points: 0
         }
 
         notifyAll({
@@ -87,6 +92,20 @@ export default function createGame(): Game{
             playerId,
             x: playerX,
             y: playerY,
+            points: 0
+        })
+    }
+
+    function scorePoint(command: Record<string, any>){
+        const playerId = command.playerId
+
+        state.players[playerId].points++
+
+        console.log(`${playerId} has ${state.players[playerId].points} points`)
+
+        notifyAll({
+            type: 'score',
+            playerId
         })
     }
 
@@ -141,6 +160,7 @@ export default function createGame(): Game{
 
             if(player.x == fruit.x && player.y == fruit.y){
                 removeFruit({fruitId})
+                scorePoint({playerId})
             }
         }
     }
@@ -199,6 +219,7 @@ export default function createGame(): Game{
         movePlayer,
         addPlayer,
         removePlayer,
+        scorePoint,
         addFruit,
         removeFruit,
         setState,

@@ -8,6 +8,7 @@
     "build": "npx tsc",
     "start": "node dist/server.js",
     "static": "copyfiles src/**/*.html src/**/*.css src/**/favicon.ico dist",
+    "tw": "npx tailwindcss -i ./src/public/style.css -o ./src/public/tw-style.css",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
