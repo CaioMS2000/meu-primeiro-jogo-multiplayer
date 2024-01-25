@@ -1,5 +1,6 @@
 npx tailwindcss -i ./src/public/style.css -o ./src/public/tw-style.css --watch
 
+npm run build;npm run start
 npx tsc;npm run static
 
 npx tsc
