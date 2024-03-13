@@ -22,7 +22,8 @@ export type Fruit = Entity;
 export interface GameState{
     players: Player;
     fruits: Entity;
-    screen: Screen
+    screen: Screen;
+    movementInterval: number;
 }
 
 export interface Game{
@@ -48,6 +49,7 @@ export default function createGame(): Game{
             height: 20,
             width: 20,
         },
+        movementInterval: 1
     }
 
     const observers: Record<Identifier, Observer> = {}
